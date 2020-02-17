@@ -16,8 +16,10 @@ public interface VisRepository extends CrudRepository<Vis, Long>{
 	 * CrudRepository ya tiene metodos genericos para poder Agregar, Eliminar, Consultar uno o varios *
 	 * ************************************************************************************************/
 	
-	@Modifying
-    @Transactional
-    @Query("SELECT v FROM Vis v WHERE v.createAt >= :desde AND v.createAt <= :hasta ")
-    List<Vis> findByCreatedDateBetween(@Param("desde") Date from, @Param("hasta") Date to);
+	
+    @Query(value = "FROM Vis v WHERE v.createAt BETWEEN :desde AND :hasta")
+    public List<Vis> getAllBetweenDates(@Param("desde")Date desde,@Param("hasta")Date hasta);
+    
+    @Query(value = "FROM Vis v WHERE v.serial =:serial")
+    public Vis findBySerial(@Param("serial") String serial);
 }
