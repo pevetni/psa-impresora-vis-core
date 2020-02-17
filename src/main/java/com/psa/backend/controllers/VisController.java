@@ -3,11 +3,13 @@ package com.psa.backend.controllers;
 import java.util.Date;
 import java.util.List;
 
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.psa.backend.models.Vis;
 import com.psa.backend.services.IVisService;
@@ -53,6 +55,22 @@ public class VisController {
 	@GetMapping("/listarByFechas/{desde}/{hasta}")
 	public List<Vis> listarByFechas(@PathVariable Date desde, @PathVariable Date hasta) {
 		return visService.findByCreatedDateBetween(desde, hasta);
+	}
+
+	public PrintService buscarImpresora(String nombre) {
+
+		// Obtenemos los servicios de impresion del sistema
+		PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
+
+		// Recorremos el array de servicios de impresion
+		for (PrintService impresora : printServices) {
+
+			// Si el nombre del servicio es el mismo que el que buscamos
+			if (impresora.getName().contentEquals(nombre)) {
+				return impresora; // Nos devuelve el servicio
+			}
+		}
+		return null; // Si no lo encuentra nos devuelve un null
 	}
 
 }
