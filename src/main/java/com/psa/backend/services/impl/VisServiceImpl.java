@@ -37,7 +37,7 @@ public class VisServiceImpl implements IVisService{
 	@Override
 	@Transactional(readOnly = true)
 	public List<Vis> findByCreatedDateBetween(Date desde, Date hasta) {
-		return (List<Vis>) visRepository.findByCreatedDateBetween(desde,  hasta);
+		return (List<Vis>) visRepository.findByCreatedDateBetween(desde, hasta);
 	}
 
 }

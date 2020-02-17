@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "seriales_vis")
 public class Vis implements Serializable{
@@ -23,6 +25,7 @@ public class Vis implements Serializable{
 	
 	@Column(name = "create_at")
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createAt;
 	
 	
