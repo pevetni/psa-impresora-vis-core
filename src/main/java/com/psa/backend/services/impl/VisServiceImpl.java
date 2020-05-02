@@ -24,8 +24,8 @@ public class VisServiceImpl implements IVisService{
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Vis> findAll() {
-		return (List<Vis>) visRepository.findAll();
+	public Iterable<Vis> findAll() {
+		return visRepository.findAll();
 	}
 
 	@Override

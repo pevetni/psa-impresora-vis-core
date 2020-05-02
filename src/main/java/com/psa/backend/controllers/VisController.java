@@ -1,6 +1,5 @@
 package com.psa.backend.controllers;
 
-import java.awt.Desktop;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,24 +13,22 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.printing.PDFPageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.log.Level;
-import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.RandomAccessFileOrArray;
 import com.psa.backend.models.Vis;
 import com.psa.backend.services.IVisService;
 
-@RestController("vis")
+@Controller("vis")
 public class VisController {
 
 	@Autowired
@@ -52,7 +49,7 @@ public class VisController {
 
 	/* Listar todos Vis */
 	@GetMapping("/listar")
-	public List<Vis> listar() {
+	public @ResponseBody Iterable<Vis> listar() {
 
 		return visService.findAll();
 	}
@@ -78,7 +75,7 @@ public class VisController {
 
 	/* Listar por Rango de Fechas */
 	@GetMapping("/listarByFechas/{desde}/{hasta}")
-	public List<Vis> listarByFechas(
+	public Iterable<Vis> listarByFechas(
 			@PathVariable(name = "desde") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date desde,
 			@PathVariable(name = "hasta") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date hasta) {
 		return visService.findByCreatedDateBetween(desde, hasta);

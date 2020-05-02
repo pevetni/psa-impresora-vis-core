@@ -14,7 +14,7 @@ public interface IVisService {
 	
 	public Vis findBySerial(String serial);
 	
-	public List<Vis> findAll();
+	public Iterable<Vis> findAll();
 	
-	public List<Vis> findByCreatedDateBetween(Date desde, Date hasta);
+	public Iterable<Vis> findByCreatedDateBetween(Date desde, Date hasta);
 }
